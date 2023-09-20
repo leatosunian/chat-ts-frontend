@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.loginImg {
+    align-self: center;
+}
+
+.loginCont {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    align-self: center;
+    padding: 35px;
+    height: fit-content;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: -10px 10px 25px 1px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 7px 10px 25px 1px rgba(0,0,0,0.3);
+    -moz-box-shadow: 7px 10px 25px 1px rgba(0,0,0,0.3);
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
+
+.loginHeader {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    margin-bottom: 30px;
+    align-items: center;
+
+}
+
+.loginForm {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* INPUT NUMBER ARROWS HIDDEN */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.loginForm button {
+    width: fit-content;
+    height: fit-content;
+    padding: 5px 17px;
+    align-self: center;
+    margin-top: 20px;
+    border: 1px solid rgba(128, 128, 128, 0.445);
+    background: linear-gradient(109.7deg, rgb(254, 83, 147) 1.8%, rgb(247, 111, 100) 90.2%);
+    color: white;
+    border-radius: 7px;
+    font-size: 14px;
+    transition: all .3s ease-in-out;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+}
+
+.loginForm button:hover {
+    transform: scale(1.1);
+    transition: all .3s ease-in-out;
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+}
+
+.loginFormInput {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+}
+
+.loginFormInput input {
+    height: 30px;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.267);
+    border-radius: 7px;
+    font-size: 13px;
+    padding: 0 10px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+}
+
+.backgroundColor {
+    background-color: rgb(39, 39, 39);
+}
+
+.messageBgColor {
+    background-color: rgb(3, 93, 77);
+    align-self: flex-end;
+}
+
+.messageRBgColor{
+    background-color: rgb(55, 55, 55);
+}
+
+.msgTime {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+
+
+.messageBox {
+    height: 88%;
+    background-image: url(/assets/chatbg.png);
+    justify-content: end;
+    flex-direction: column-reverse;
+}
+.messageInput {
+    background-color: rgb(44, 44, 44);
+    font-size: 12px;
+    padding: 6px 10px;
+    color: white;
+}
+
+.messageInput:focus {
+    border: 1px solid white;
+}
+
+
+/* PROFILE SETTINGS COMPONENT */
+
+.mainContSettings {
+    background-color: rgb(44, 44, 44);
+    top: 0;
+    transform: translateX(28px);
+    padding: 20px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.267);
+    -webkit-transform: translateX(28px);
+    -moz-transform: translateX(28px);
+    -ms-transform: translateX(28px);
+    -o-transform: translateX(28px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
