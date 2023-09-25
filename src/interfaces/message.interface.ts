@@ -1,5 +1,5 @@
 export type messageInterface = {
-    sentBy: string,
+    sentBy: string|null,
     sentTo: string,
     chatID: string,
     msgType: string,

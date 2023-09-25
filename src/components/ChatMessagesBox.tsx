@@ -6,7 +6,7 @@ import { messageInterface } from '../interfaces/message.interface';
 import { SocketContext } from '../context/socketContext';
 
 type chatProps = {
-    sentBy: string,
+    sentBy: string|null,
     sentTo: string
 } 
 
@@ -41,8 +41,12 @@ const ChatMessagesBox: React.FC<chatProps> = ({sentBy, sentTo}) => {
             const response = await axiosReq.get('/chats/get/'+sentBy+'/'+sentTo, authHeader)
             setChatId(response.data.response_data.chatId)
             setMessages(response.data.response_data.messages)
+            console.log(response.data.response_data.messages);
+            
             setUserTwoData(response.data.response_data.userTwoData)    
             setIsChatSelected(true) 
+            console.log('messages get');
+            
         } catch (error) {
             console.log(error)
         }        
@@ -103,10 +107,10 @@ const ChatMessagesBox: React.FC<chatProps> = ({sentBy, sentTo}) => {
 
             { !isChatSelected && 
                 <>
-                    <div className='w-full h-full flex flex-col items-center justify-center gap-4'>
+                    <div className='flex flex-col items-center justify-center w-full h-full gap-4'>
                         <img className='w-64' src="../../public/assets/tcsquare1.png" alt="" />
-                        <h1 className='text-white text-xl font-semibold'>TypeChat for Windows</h1>
-                        <span className='text-white font-normal text-sm'>
+                        <h1 className='text-xl font-semibold text-white'>TypeChat for Windows</h1>
+                        <span className='text-sm font-normal text-white'>
                             ¡Selecciona un chat o inicia uno nuevo para comenzar a hablar!
                         </span>
                     </div>

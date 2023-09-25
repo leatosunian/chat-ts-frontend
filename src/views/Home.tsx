@@ -25,7 +25,7 @@ const Home = () => {
     
 
     type chatProps = {
-        sentBy: string,
+        sentBy: string|null,
         sentTo: string
     }
 
@@ -43,9 +43,9 @@ const Home = () => {
     const socket = useContext(SocketContext)
     const [socketData, setSocketData] = useState<socketData>()
     const [settingsActive, setSettingsActive] = useState(false)
-    const [newMsgActive, setNewMsgActive] = useState(true)
+    const [newMsgActive, setNewMsgActive] = useState(false)
 
-
+    const userId = localStorage.getItem('typechat_userId')
     const handleClick:React.MouseEventHandler<HTMLDivElement> = async (e) => {
         e.preventDefault()
         const sentTo = ( e.currentTarget as HTMLDivElement).id.toString()
@@ -62,7 +62,7 @@ const Home = () => {
     }
 
     const getChats = async () => {
-        const userId = localStorage.getItem('typechat_userId')
+        
         const token = localStorage.getItem('typechat_token')
         const authHeader = {
             headers: {
@@ -130,9 +130,26 @@ const Home = () => {
             
             updateLastMsg(data)
         })
+        socket.on('serverNewChatCreated', (roomUsers) => {
+            console.log(roomUsers);
+            if(roomUsers.userOne === userId){
+                const sentBy = roomUsers.userOne
+                const sentTo = roomUsers.userTwo
+                const payload: SetStateAction<chatProps>= {
+                    sentBy,
+                    sentTo
+                }
+                
+                setChatProps(payload)
+                getChats()
+                setNewMsgActive(false)
+            }
+            
+        })
         return () => {
             socket.off('serverMsg')
             socket.off('incomingMsgNotification')
+            socket.off('serverNewChatCreated')
         }
     }, [socket])
 
