@@ -30,17 +30,14 @@ const NewChat: React.FC = () => {
         try {
             // GET USERTWO ID  //
             const response = await axiosReq.get('/user/getbyphone/'+formData.phone , authHeader) 
-            console.log(response.data);
             if(response.data.response_data === 'USER_NOT_FOUND'){
-                handleAlert({error: true, msg: 'El usuario no existe'});
+                handleAlert({error: true, msg: 'El usuario no existe', alertType: 'ERROR_ALERT'});
                 return
             }
             const userIDs = {userOne: userID, userTwo: response.data.response_data._id}
 
             // CREATE CHAT //
             if(userIDs.userOne !== '' || userIDs.userTwo !== ''){
-                console.log('in if');
-                
                 const chatCreated = await axiosReq.post('/chats/create', userIDs , authHeader)
                 console.log(chatCreated.data);
                 if(chatCreated.data.msg === 'CHAT_CREATED_SUCCESSFULLY'){
@@ -52,8 +49,7 @@ const NewChat: React.FC = () => {
                         text: formData.message,
                         date: getActualTime()
                     }
-                    const response = await axiosReq.post('/messages/send', message, authHeader)
-                    console.log(response);
+                    await axiosReq.post('/messages/send', message, authHeader)
                     //EMIT SOCKET CHAT CREATED NOTIFICATION//
                     socket.emit('clientNewChatCreated', {userOne: userIDs.userOne, userTwo: userIDs.userTwo})
                 }
@@ -72,7 +68,7 @@ const NewChat: React.FC = () => {
     }
 
   return (
-    <div className="absolute text-white mainContSettings w-72 h-fit ">
+    <div className="absolute text-white mainContSettings w-72 h-fit" style={{zIndex: 2000}}>
         <div className="flex flex-col items-center gap-5">
             <div className="">
                 <h3 className="text-xl font-semibold">Nuevo chat</h3>
@@ -92,7 +88,7 @@ const NewChat: React.FC = () => {
                 {
                         alert?.error &&
                         <div className="flex justify-center w-full h-fit">
-                            <Alert error= {alert?.error} msg={alert?.msg} />
+                            <Alert error= {alert?.error} msg={alert?.msg} alertType={alert?.alertType} />
                         </div>
                 }
 

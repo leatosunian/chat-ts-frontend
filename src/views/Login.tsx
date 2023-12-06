@@ -4,50 +4,73 @@ import axiosReq from '../config/axios.jsx'
 import Alert from "../components/Alert.js"
 import AlertInterface from "../interfaces/alert.interface.js"
 import { useNavigate } from "react-router-dom"
+import { useAuth } from "../hooks/useAuth.js"
 
 
 const Login: React.FC = () => {
     const [inputValues, setInputValues] = useState<LoginInterface>()
     const [ alert, setAlert ] = useState<AlertInterface>()
     const navigate = useNavigate()
+    const { saveAuthData } = useAuth()
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         // FORM VALIDATIONS //        
         if( !inputValues?.email){
-            handleAlert({ msg: "Ingresá un correo válido", error: true});
+            handleAlert({ msg: "Ingresá un correo válido", error: true, alertType: 'ERROR_ALERT'});
+            hideAlert()
             return;
         }
         if( !inputValues?.password ){
-            handleAlert({ msg: 'Debes ingresar tu contraseña', error: true });
+            handleAlert({ msg: 'Debes ingresar tu contraseña', error: true, alertType: 'ERROR_ALERT' });
+            hideAlert()
             return;
         } 
         if(`${inputValues?.password}`.length < 6){
-            handleAlert({ msg: 'Formato de contraseña incorrecta', error: true });
+            handleAlert({ msg: 'Formato de contraseña incorrecta', error: true, alertType: 'ERROR_ALERT' });
+            hideAlert()
             return;
         }
         if(inputValues == undefined){
-            handleAlert({error: true, msg: 'Todos los campos son obligatorios'});
+            handleAlert({error: true, alertType: 'ERROR_ALERT', msg: 'Todos los campos son obligatorios'});
+            hideAlert()
             return;
         }
-        handleAlert({msg:'', error: false});
+        handleAlert({msg:'', error: false, alertType: 'ERROR_ALERT'});
 
         // LOGIN REQUEST //
         const response = await axiosReq.post('/user/login', inputValues);
         console.log(response.data.response_data);
         if(response.data.response_data === 'USER_NOT_FOUND'){
-            handleAlert({error: true, msg: 'El usuario no existe'});
+            handleAlert({error: true, alertType: 'ERROR_ALERT', msg: 'El usuario no existe'});
+            hideAlert()
             return;
         }
         if(response.data.response_data === 'WRONG_PASSWORD'){
-            handleAlert({error: true, msg: 'Contraseña incorrecta'});
+            handleAlert({error: true, alertType: 'ERROR_ALERT', msg: 'Contraseña incorrecta'});
+            hideAlert()
             return;
         }
         // USER DATA STORAGE //
-        localStorage.setItem('typechat_token', response.data.response_data.loginToken)
-        localStorage.setItem('typechat_userId', response.data.response_data.userId) 
+
+        const loginData = {
+            userID: response.data.response_data.userId,
+            token: response.data.response_data.loginToken
+        }
+
+        localStorage.setItem('typechat_token', loginData.token)
+        localStorage.setItem('typechat_userId', loginData.userID) 
+
+        saveAuthData(loginData)
+
         navigate('/home')      
+    }
+
+    const hideAlert = () => {
+        setTimeout(() => {
+            handleAlert({error: false, alertType: 'ERROR_ALERT', msg: ''});
+        }, 3000);
     }
 
     const handleAlert = (e:AlertInterface) => {
@@ -62,6 +85,8 @@ const Login: React.FC = () => {
         setInputValues({...inputValues, [e.target.name]: e.target.value})
     }
 
+
+    
     return (
         <div className="flex w-screen h-screen">
             <div className="flex justify-center w-1/2 h-screen ">
@@ -100,7 +125,7 @@ const Login: React.FC = () => {
 
                     {
                         alert?.error &&
-                        <Alert error= {alert?.error} msg={alert?.msg} />
+                        <Alert error= {alert?.error} msg={alert?.msg} alertType={alert?.alertType} />
                     }
                     
                 </div>

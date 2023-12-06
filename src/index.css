@@ -8,6 +8,88 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+.spinnerClass {
+    transition: all .2 ease-in-out;
+    -webkit-transition: all .2 ease-in-out;
+    -moz-transition: all .2 ease-in-out;
+    -ms-transition: all .2 ease-in-out;
+    -o-transition: all .2 ease-in-out;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+    width: 50px;
+    --b: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: rgb(62, 62, 62);
+    -webkit-mask:
+      repeating-conic-gradient(#0000 0deg,#000 1deg 70deg,#0000 71deg 90deg),
+      radial-gradient(farthest-side,#0000 calc(100% - var(--b) - 1px),#000 calc(100% - var(--b)));
+    -webkit-mask-composite: destination-in;
+            mask-composite: intersect;
+    animation: l5 1s infinite;
+  }
+  @keyframes l5 {to{transform: rotate(.5turn)}}
+
+.selected {
+    background-color: rgb(59, 59, 59);
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+}
+
+.unselected {
+    background-color: rgb(39, 39, 39);
+    transition: all .3s ease-in-out
+}
+
+.chatContainer:hover {
+    background-color: rgb(59, 59, 59);
+    transition: all .3s ease-in-out
+}
+
+.chatScroll::-webkit-scrollbar {
+    margin-left: 4px;
+    width: 7px;
+    color: red;
+    transition: .3s all ease-in-out;
+}
+  
+.chatScroll::-webkit-scrollbar-track {
+    background: rgba(73, 73, 73, 0.168);
+    transition: .3s all ease-in-out;
+    border-radius: 100vw; 
+    -webkit-border-radius: 100vw;
+    -moz-border-radius: 100vw;
+    -ms-border-radius: 100vw;
+    -o-border-radius: 100vw;
+}
+  
+.chatScroll::-webkit-scrollbar-thumb {
+    /* background: linear-gradient(to bottom, #fe529457, #f76e6444); */
+    background-color: rgba(255, 255, 255, 0.336);
+    height: 50px;
+    border-radius: 100vw;
+    transition: .3s all ease-in-out;
+    -webkit-transition: .3s all ease-in-out;
+    -moz-transition: .3s all ease-in-out;
+    -ms-transition: .3s all ease-in-out;
+    -o-transition: .3s all ease-in-out;
+    -webkit-border-radius: 100vw;
+    -moz-border-radius: 100vw;
+    -ms-border-radius: 100vw;
+    -o-border-radius: 100vw;
+}
+  
+.chatScroll::-webkit-scrollbar-thumb:hover {
+    /* background: linear-gradient(to bottom, #fe5294b6, #f76e64a1); */
+    background-color: white;
+    transition: .3s all ease-in-out;
+}
+
 .loginImg {
     align-self: center;
 }
@@ -116,6 +198,11 @@ input[type=number] {
 
 .backgroundColor {
     background-color: rgb(39, 39, 39);
+    transition: all ease-in-out .2s;
+    -webkit-transition: all ease-in-out .2s;
+    -moz-transition: all ease-in-out .2s;
+    -ms-transition: all ease-in-out .2s;
+    -o-transition: all ease-in-out .2s;
 }
 
 .messageBgColor {
@@ -159,6 +246,7 @@ input[type=number] {
     top: 0;
     transform: translateX(28px);
     padding: 20px 10px;
+    
     border: 1px solid rgba(0, 0, 0, 0.267);
     -webkit-transform: translateX(28px);
     -moz-transform: translateX(28px);
@@ -166,11 +254,76 @@ input[type=number] {
     -o-transform: translateX(28px);
 }
 
+.inputFileForm {
+    width:  100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    
+}
 
+.inputFileForm img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
 
+}
 
+.inputFileForm img:hover {
+    backdrop-filter: opacity(10%);
+}
 
+.sidebarProfileImage {
+    width:  3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    
+}
 
+.sidebarProfileImage img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+
+}
+
+.notificationContainer{
+    transition:all ease-in-out .3s;
+    position: fixed;
+    z-index: 99999;
+    height: fit-content;
+    max-width: fit-content;
+    min-width: 300px;
+    padding: 20px 24px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgba(80, 80, 80, 0.374);
+    box-shadow: 6px 6px 10px rgba(31, 31, 31, 0.2);
+    border-radius: 8px;
+    top: -400px;
+    
+    -webkit-transition:all ease-in-out .3s;
+    -moz-transition:all ease-in-out .3s;
+    -ms-transition:all ease-in-out .3s;
+    -o-transition:all ease-in-out .3s;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+.actived{
+    transition:all ease-in-out .3s;
+    top: 60px;
+    left: 50%;
+    transform: translate(-50%, 0);
+} 
 
 
 

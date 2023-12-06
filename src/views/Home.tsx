@@ -5,24 +5,28 @@ import { SocketContext } from "../context/socketContext"
 import { messageInterface } from '../interfaces/message.interface';
 import ProfileSettings from "../components/ProfileSettings";
 import NewChat from "../components/NewChat";
+import Chat from "../components/Chat";
+import Spinner from "../components/Spinner";
+import { useAnimate, motion } from 'framer-motion';
+
+export type chatype = {
+    userId: string,
+    name: string,
+    lastMsg: string,
+    chatId: string,
+    createdAt: Date,
+    updatedAt: Date,
+    profileImage: string
+}
+
 
 const Home = () => {
 
     type userdata = {
         name: string,
-        _id: string
+        _id: string,
+        profileImage: string
     }
-
-    type chatype = 
-        {
-            userId: string,
-            name: string,
-            lastMsg: string,
-            chatId: string,
-            createdAt: Date,
-            updatedAt: Date
-        }
-    
 
     type chatProps = {
         sentBy: string|null,
@@ -37,15 +41,20 @@ const Home = () => {
     const [ userData, setUserData ] = useState<userdata>()
     const [ chats, setChats ] = useState<chatype[]>()
     const [ chatProps, setChatProps] = useState<chatProps>({
-    sentBy: '',
-    sentTo: ''
+        sentBy: '',
+        sentTo: ''
     })
     const socket = useContext(SocketContext)
     const [socketData, setSocketData] = useState<socketData>()
     const [settingsActive, setSettingsActive] = useState(false)
     const [newMsgActive, setNewMsgActive] = useState(false)
+    const [activeChat, setActiveChat] = useState('')
+    const [loading, setLoading] = useState(true)
+
+    const [scope, animate] = useAnimate()
 
     const userId = localStorage.getItem('typechat_userId')
+
     const handleClick:React.MouseEventHandler<HTMLDivElement> = async (e) => {
         e.preventDefault()
         const sentTo = ( e.currentTarget as HTMLDivElement).id.toString()
@@ -58,7 +67,9 @@ const Home = () => {
             sentBy,
             sentTo
         }
-        setChatProps(payload)                
+        setChatProps(payload)  
+        setActiveChat(sentTo)
+        /*e.currentTarget.classList.toggle('selected');*/              
     }
 
     const getChats = async () => {
@@ -73,13 +84,26 @@ const Home = () => {
         try {
             const response = await axiosReq.get('/user/get/'+userId, authHeader)
             setUserData(response.data.response_data.user_data)
-            setChats(response.data.response_data.chats)            
+            setChats(response.data.response_data.chats)  
+            setLoadingTimeout()
+                   
         } catch (error) {
             console.log(error)
         }
     }
 
+    const setLoadingTimeout = () => {
+        animate(scope.current, {opacity: 0 },  {duration: .7})   
+        setTimeout(() => {
+            setLoading(false)
+        }, 700);
+    }
+
     const handleSettingClick = () => {
+        if(newMsgActive) {
+            setNewMsgActive(false)
+        }
+
         if(!settingsActive) {
             setSettingsActive(true)
         } else {
@@ -89,6 +113,10 @@ const Home = () => {
     }
 
     const handleNewMsgClick = () => {
+        if(settingsActive) {
+            setSettingsActive(false)
+        }
+
         if(!newMsgActive) {
             setNewMsgActive(true)
         } else {
@@ -113,8 +141,22 @@ const Home = () => {
         
     }
 
+    const updateChatLastMsg = (message: messageInterface, userId: string | undefined ) => {
+        console.log(message);
+        console.log(userId);
+        console.log(chats?.length);
+        console.log(message.sentBy);
+        console.log(message.sentTo);
+
+        const chatToUpdate = chats?.find(chat => chat.userId === message.sentBy || chat.userId === message.sentTo )
+        console.log(chatToUpdate);
+        
+        /*const updatedChats = chats?.map( chat => chat.chatId === data.room ? { ...chat, lastMsg: data.msg.text } : chat)
+        console.log(updatedChats);*/
+    }
+
     useEffect(() => {
-        getChats()
+        getChats()        
     }, [] )
 
     // socket useEffect //
@@ -123,11 +165,7 @@ const Home = () => {
             setSocketData(data)
             getChats()
         })
-        socket.on('incomingMsgNotification', (data) => {
-            console.log(data);
-            
-            console.log('llego la notificacion');
-            
+        socket.on('incomingMsgNotification', (data) => {            
             updateLastMsg(data)
         })
         socket.on('serverNewChatCreated', (roomUsers) => {
@@ -153,58 +191,78 @@ const Home = () => {
         }
     }, [socket])
 
+    /*const showSpinner = () => {
+        return (
+            <div ref={scope} className="flex w-screen h-screen backgroundColor ">
+                <Spinner/>
+            </div>
+        )
+    }*/
+
 
     return (
         <>
+            { loading &&
+            <div ref={scope} className="absolute z-50 flex w-screen h-screen backgroundColor ">
+                <Spinner/>
+            </div>
+            }
+            
             <div className="flex w-screen h-screen backgroundColor ">
-                <div className="flex flex-col w-1/4 h-full gap-4 ">
+                
+                {/* sidebar */}
+                <div className="flex flex-col h-full gap-4" style={{width: '400px', minWidth:'370px'}}>
                     <div className="flex w-full p-3 border-b border-black/25 h-fit ">
 
                         <div className="flex items-center justify-between w-full">
 
                             <div className="flex items-center gap-5">
-                                <img src="../../public/assets/user.png" alt=""     className="w-12 h-12"/>
-                                <span className="font-medium text-white">
-                                    {userData?.name}
+                                <div className="rounded-full sidebarProfileImage" onClick={handleSettingClick}>
+                                    <img src={'http://localhost:4000/api/user/getprofilepic/'+userData?.profileImage} alt="" className="w-12 h-12 rounded-full"/>   
+                                </div> 
+                                
+                                <span className="font-medium text-white" title="Editar perfil">
+                                    {userData?.name }
                                 </span>
                             </div>
 
                             <div className="" >
-                                <img onClick={handleSettingClick} className="w-4 h-4" src="../../public/assets/more.png" alt="" />
-                                { settingsActive && <ProfileSettings userId={userData?._id} /> }
+                                <motion.img title="Editar perfil" whileTap={{ scale: 0.9 }} onClick={handleSettingClick} className="w-4 h-4" src="../../public/assets/more.png" alt="..." />
+
+                                { settingsActive && 
+                                    <ProfileSettings userId={userData?._id} refreshProfile={ () => getChats() } /> 
+                                }
+                                
                                 { newMsgActive && <NewChat/> }
                             </div>
                             
                         </div>
                     </div>
 
-                    <div className="flex flex-col w-full h-full gap-3 px-3">
+                    <div className="flex flex-col w-full h-full gap-3 px-2">
 
                         <div className="flex justify-between px-2">
                             <span className="text-lg font-semibold text-white">Chats</span>
-                            <button onClick={handleNewMsgClick} className="p-2 bg-gray-700 w-fit h-fit rounded-xl">
+                            <motion.button whileHover={{backgroundColor: 'rgb(75, 75, 75)'}} whileTap={{ scale: 0.9 }} onClick={handleNewMsgClick} className="p-2 w-fit h-fit rounded-xl" style={{backgroundColor: 'rgb(59, 59, 59)'}} title="Nuevo chat">
                                 <img className="w-4" src="../../public/assets/newmsg.png" alt="" />
-                            </button>
+                            </motion.button>
                         </div>
 
                         {chats?.map( chat => 
-                            <div onClick={handleClick} key={chat.userId} id={`${chat.userId}` } className="flex items-center gap-4 py-3 border-t border-b border-black/25">
-                                <img src="../../public/assets/user.png" alt="" className="w-11 h-11" />
-                                <div>
-                                    <span className="text-xs font-semibold leading-none text-white">{chat.name} </span>
-                                    <p className="text-xs text-white">{chat.lastMsg}</p>
-                                </div>
-                            </div>
+                            <Chat  key={chat.userId} handleClickProp={(e) => {handleClick(e)}} userId={chat.userId} profileImage={chat.profileImage} name={chat.name} lastMsg={chat.lastMsg} activeChat={activeChat} />
                         )}
                                 
                     </div>  
                 </div>
 
-                <ChatMessagesBox sentBy={chatProps?.sentBy} sentTo={chatProps?.sentTo} />
+                {/* sidebar end */}
+                
+                <ChatMessagesBox sentBy={chatProps?.sentBy} sentTo={chatProps?.sentTo} onNewMessage={(message, userId) => {updateChatLastMsg(message, userId)}} />
 
-            </div>
+            </div>           
         </>
     )
 }
+
 
 export default Home
