@@ -8,6 +8,7 @@ import { AuthProvider } from './context/AuthProvider';
 import LoggedInLayout from "./layout/LoggedInLayout"
 import { SkeletonTheme } from "react-loading-skeleton"
 import 'react-loading-skeleton/dist/skeleton.css'
+import Redirect from "./views/Redirect"
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
             <Routes>
 
               <Route path="/" element={<LoggedInLayout/>}>
+                <Route index element={<Redirect/>} />
                 <Route path="login" element={<Login/>} />
                 <Route path="register" element={<Register/>} />
               </Route>
