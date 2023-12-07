@@ -218,7 +218,7 @@ const Home = () => {
 
                             <div className="flex items-center gap-5">
                                 <div className="rounded-full sidebarProfileImage" onClick={handleSettingClick}>
-                                    <img src={'http://localhost:4000/api/user/getprofilepic/'+userData?.profileImage} alt="" className="w-12 h-12 rounded-full"/>   
+                                    <img src={`${import.meta.env.VITE_BACKEND_URL}/api/user/getprofilepic/`+userData?.profileImage} alt="" className="w-12 h-12 rounded-full"/>   
                                 </div> 
                                 
                                 <span className="font-medium text-white" title="Editar perfil">

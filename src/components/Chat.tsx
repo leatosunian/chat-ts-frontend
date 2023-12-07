@@ -23,7 +23,7 @@ const Chat: React.FC<chatProps> = (props) => {
   return (
     <motion.div whileTap={{ scale: 0.95 }} transition={{ease: 'easeIn', duration: .05}} onClick={(e) => {props.handleClickProp(e);}} key={props.userId} id={`${props.userId}` } className={ handleChatStyles(props.userId) }>
         <div className="rounded-full sidebarProfileImage">
-            {<img src={'http://localhost:4000/api/user/getprofilepic/'+props.profileImage } alt="" className="rounded-full w-11 h-11"/>  }
+            {<img src={`${import.meta.env.VITE_BACKEND_URL}/api/user/getprofilepic/`+props.profileImage } alt="" className="rounded-full w-11 h-11"/>  }
         </div>
         <div>
             <span className="text-xs font-semibold leading-none text-white">{props.name} </span>

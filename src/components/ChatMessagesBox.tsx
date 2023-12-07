@@ -131,7 +131,7 @@ const ChatMessagesBox: React.FC<chatProps> = ({sentBy, sentTo, onNewMessage}) =>
                             <div className="flex items-center gap-5">
 
                                 <div className="rounded-full sidebarProfileImage">
-                                        <img src={'http://localhost:4000/api/user/getprofilepic/'+userTwoData?.profileImage} alt="" className="w-12 h-12 rounded-full"/>   
+                                        <img src={`${import.meta.env.VITE_BACKEND_URL}/api/user/getprofilepic/`+userTwoData?.profileImage} alt="" className="w-12 h-12 rounded-full"/>   
                                     </div>
                                 <span className="font-medium text-white">
                                     {userTwoData?.name}
@@ -167,13 +167,13 @@ const ChatMessagesBox: React.FC<chatProps> = ({sentBy, sentTo, onNewMessage}) =>
                         {/* TEXT INPUT */}
                         <div className="flex items-center justify-between w-full border-t border-black/25 h-14 ">
                             <div className="flex gap-10 px-5 w-fit h-fit">
-                                <img src="/assets/happy.png" className="w-5 h-5"/>
-                                <img src="/assets/paper-clip.png" className="w-5 h-5" />
+                                <img src="../assets/images/happy.png" className="w-5 h-5"/>
+                                <img src="../assets/images/paper-clip.png" className="w-5 h-5" />
                             </div>
                             <form onSubmit={handleSubmit} action="" className='flex items-center w-5/6 h-fit '>
                                 <input value={textInput} type="text" onChange={ e => setTextInput(e.target.value)} placeholder="Type a message" className="w-full messageInput rounded-xl" />
                                 
-                                <img src="/assets/paper-plane.png" alt="" className="w-5 h-5 mx-5" />
+                                <img src="../assets/images/paper-plane.png" alt="" className="w-5 h-5 mx-5" />
                             </form>
                         </div>
                     </>
