@@ -100,7 +100,7 @@ const Register = () => {
         }
 
         <div className="flex justify-center w-1/2 h-screen ">
-            <img src="../../public/assets/tcsquare1.png" className="w-64 h-40 loginImg" alt="" />
+            <img src="../assets/images/tcsquare1.png" className="w-64 h-40 loginImg" alt="" />
         </div>
 
         <div className="flex justify-center w-1/2 h-screen">
