@@ -227,7 +227,7 @@ const Home = () => {
                             </div>
 
                             <div className="" >
-                                <motion.img title="Editar perfil" whileTap={{ scale: 0.9 }} onClick={handleSettingClick} className="w-4 h-4" src="../../public/assets/more.png" alt="..." />
+                                <motion.img title="Editar perfil" whileTap={{ scale: 0.9 }} onClick={handleSettingClick} className="w-4 h-4" src="../assets/images/more.png" alt="..." />
 
                                 { settingsActive && 
                                     <ProfileSettings userId={userData?._id} refreshProfile={ () => getChats() } /> 
@@ -244,7 +244,7 @@ const Home = () => {
                         <div className="flex justify-between px-2">
                             <span className="text-lg font-semibold text-white">Chats</span>
                             <motion.button whileHover={{backgroundColor: 'rgb(75, 75, 75)'}} whileTap={{ scale: 0.9 }} onClick={handleNewMsgClick} className="p-2 w-fit h-fit rounded-xl" style={{backgroundColor: 'rgb(59, 59, 59)'}} title="Nuevo chat">
-                                <img className="w-4" src="../../public/assets/newmsg.png" alt="" />
+                                <img className="w-4" src="../assets/images/newmsg.png" alt="" />
                             </motion.button>
                         </div>
 

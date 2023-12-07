@@ -116,7 +116,7 @@ const ChatMessagesBox: React.FC<chatProps> = ({sentBy, sentTo, onNewMessage}) =>
                 { !isChatSelected && 
                     <>
                         <div className='flex flex-col items-center justify-center w-full h-full gap-4'>
-                            <img className='w-64' src="../../public/assets/tcsquare1.png" alt="" />
+                            <img className='w-64' src="../assets/images/tcsquare1.png" alt="" />
                             <h1 className='text-xl font-semibold text-white'>TypeChat for Windows</h1>
                             <span className='text-sm font-normal text-white'>
                                 ¡Selecciona un chat o inicia uno nuevo para comenzar a hablar!

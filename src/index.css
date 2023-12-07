@@ -227,7 +227,7 @@ input[type=number] {
 
 .messageBox {
     height: 88%;
-    background-image: url(/assets/chatbg.png);
+    background-image: url(./assets/images/chatbg.png);
     justify-content: end;
     flex-direction: column-reverse;
 }
