@@ -4,6 +4,8 @@ import Alert from "../components/Alert.js"
 import AlertInterface from "../interfaces/alert.interface.js"
 import axiosReq from "../config/axios.js"
 import { useNavigate } from "react-router-dom";
+import tcsquare1 from '../assets/tcsquare1.png'
+
 const Register = () => {
 
     const [inputValues, setInputValues] = useState<RegisterInterface>({
@@ -100,7 +102,7 @@ const Register = () => {
         }
 
         <div className="flex justify-center w-1/2 h-screen ">
-            <img src="../assets/images/tcsquare1.png" className="w-64 h-40 loginImg" alt="" />
+            <img src={tcsquare1} className="w-64 h-40 loginImg" alt="" />
         </div>
 
         <div className="flex justify-center w-1/2 h-screen">
