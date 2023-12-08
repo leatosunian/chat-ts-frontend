@@ -5,7 +5,9 @@ import { getActualTime } from '../utils/getTime';
 import { messageInterface } from '../interfaces/message.interface';
 import { SocketContext } from '../context/socketContext';
 import { motion } from 'framer-motion';
-
+import paperplane from '../assets/paper-plane.png'
+import paperclip from '../assets/paper-clip.png'
+import happy from '../assets/happy.png'
 
 interface chatProps {
     sentBy: string|null,
@@ -167,13 +169,13 @@ const ChatMessagesBox: React.FC<chatProps> = ({sentBy, sentTo, onNewMessage}) =>
                         {/* TEXT INPUT */}
                         <div className="flex items-center justify-between w-full border-t border-black/25 h-14 ">
                             <div className="flex gap-10 px-5 w-fit h-fit">
-                                <img src="../assets/images/happy.png" className="w-5 h-5"/>
-                                <img src="../assets/images/paper-clip.png" className="w-5 h-5" />
+                                <img src={happy} className="w-5 h-5"/>
+                                <img src={paperclip} className="w-5 h-5" />
                             </div>
                             <form onSubmit={handleSubmit} action="" className='flex items-center w-5/6 h-fit '>
                                 <input value={textInput} type="text" onChange={ e => setTextInput(e.target.value)} placeholder="Type a message" className="w-full messageInput rounded-xl" />
                                 
-                                <img src="../assets/images/paper-plane.png" alt="" className="w-5 h-5 mx-5" />
+                                <img src={paperplane} alt="" className="w-5 h-5 mx-5" />
                             </form>
                         </div>
                     </>

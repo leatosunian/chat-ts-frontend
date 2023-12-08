@@ -5,7 +5,7 @@ import Alert from "../components/Alert.js"
 import AlertInterface from "../interfaces/alert.interface.js"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth.js"
-
+import tcsquare1 from '../assets/tcsquare1.png'
 
 const Login: React.FC = () => {
     const [inputValues, setInputValues] = useState<LoginInterface>()
@@ -90,7 +90,7 @@ const Login: React.FC = () => {
     return (
         <div className="flex w-screen h-screen">
             <div className="flex justify-center w-1/2 h-screen ">
-                <img src="../assets/images/tcsquare1.png" className="w-64 h-40 loginImg" alt="" />
+                <img src={tcsquare1} className="w-64 h-40 loginImg" alt="" />
             </div>
 
             <div className="flex justify-center w-1/2 h-screen">

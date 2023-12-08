@@ -4,7 +4,7 @@ import axiosReq from "../config/axios"
 import { useAuth } from "../hooks/useAuth";
 import Spinner from "./Spinner";
 import { useAnimate } from 'framer-motion';
-
+import logout from '../assets/logout.png'
 type settingsProps = {
     userId: string | undefined;
     refreshProfile: () => void;
@@ -142,7 +142,7 @@ const ProfileSettings: React.FC<settingsProps> = ({userId, refreshProfile}) => {
                 <div className="absolute z-30 text-white mainContSettings w-72 h-fit ">
                     <div className="flex flex-col items-center gap-5">
                         <div onClick={ handleClick } className="rounded-full inputFileForm" title="Cambiar foto de perfil" >
-                            <img className="w-16 rounded-full" src={'http://localhost:4000/api/user/getprofilepic/'+userData.profileImage} alt="" />
+                            <img className="w-16 rounded-full" src={`${import.meta.env.VITE_BACKEND_URL}/api/user/getprofilepic/`+userData.profileImage} alt="" />
                             <input onChange={handleFileInput} type="file" className="inputField" accept="image/*" hidden />
                         </div>
 
@@ -163,7 +163,7 @@ const ProfileSettings: React.FC<settingsProps> = ({userId, refreshProfile}) => {
                                 <button className="px-3 py-1 mt-3 text-sm rounded-xl bg-zinc-900 w-fit h-fit">Guardar cambios</button>
                             </form>
                             <button onClick={logOut} className="px-2 py-2 mx-auto mt-3 text-sm bg-red-900 rounded-xl w-fit h-fit">
-                                <img className="w-4 mx-auto my-auto" src="../../public/assets/logout.png" alt="" />
+                                <img className="w-4 mx-auto my-auto" src={logout} alt="" title="Cerrar sesión" />
                             </button>
                         </div>
                     </div>

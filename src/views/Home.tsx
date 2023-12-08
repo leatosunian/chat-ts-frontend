@@ -8,6 +8,8 @@ import NewChat from "../components/NewChat";
 import Chat from "../components/Chat";
 import Spinner from "../components/Spinner";
 import { useAnimate, motion } from 'framer-motion';
+import test from '../assets/newmsg.png'
+import more from '../assets/more.png'
 
 export type chatype = {
     userId: string,
@@ -227,7 +229,7 @@ const Home = () => {
                             </div>
 
                             <div className="" >
-                                <motion.img title="Editar perfil" whileTap={{ scale: 0.9 }} onClick={handleSettingClick} className="w-4 h-4" src="../assets/images/more.png" alt="..." />
+                                <motion.img title="Editar perfil" whileTap={{ scale: 0.9 }} onClick={handleSettingClick} className="w-4 h-4" src={more} alt="..." />
 
                                 { settingsActive && 
                                     <ProfileSettings userId={userData?._id} refreshProfile={ () => getChats() } /> 
@@ -244,7 +246,7 @@ const Home = () => {
                         <div className="flex justify-between px-2">
                             <span className="text-lg font-semibold text-white">Chats</span>
                             <motion.button whileHover={{backgroundColor: 'rgb(75, 75, 75)'}} whileTap={{ scale: 0.9 }} onClick={handleNewMsgClick} className="p-2 w-fit h-fit rounded-xl" style={{backgroundColor: 'rgb(59, 59, 59)'}} title="Nuevo chat">
-                                <img className="w-4" src="../assets/images/newmsg.png" alt="" />
+                                <img className="w-4" src={test} alt="" />
                             </motion.button>
                         </div>
 
