@@ -105,7 +105,9 @@ const ProfileSettings: React.FC<settingsProps> = ({userId, refreshProfile}) => {
         if(e.target.files?.length != undefined){
             image = e.target.files[0]
             if(image.type == 'image/jpeg' || image.type == 'image/png' || image.type == 'image/webp' || image.type == 'image/jpg'){
+                console.log('imagen seleccionada');
                 updateProfileImage(image)
+
             } else {
                 console.log('file is not an image');
             }
@@ -118,6 +120,8 @@ const ProfileSettings: React.FC<settingsProps> = ({userId, refreshProfile}) => {
 
         try {
             await axiosReq.post('/user/update/profile-pic', formData, formAuthHeader);
+            console.log('peticion enviada');
+            
             refreshProfile();
             getProfileData();
         } catch (error) {
