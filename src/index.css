@@ -68,7 +68,11 @@ img [title]::after {
 
 .chatContainer:hover {
     background-color: rgb(59, 59, 59);
-    transition: all .3s ease-in-out
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
 }
 
 .chatScroll::-webkit-scrollbar {
@@ -121,9 +125,11 @@ img [title]::after {
     align-items: center;
     width: 50%;
     align-self: center;
-    padding: 35px;
+    padding: 45px 35px;
     height: fit-content;
+    background-color: rgb(40, 40, 40);
     border: 1px solid rgba(0, 0, 0, 0.2);
+    color: white;
     box-shadow: -10px 10px 25px 1px rgba(0,0,0,0.3);
     -webkit-box-shadow: 7px 10px 25px 1px rgba(0,0,0,0.3);
     -moz-box-shadow: 7px 10px 25px 1px rgba(0,0,0,0.3);
@@ -169,7 +175,7 @@ input[type=number] {
     height: fit-content;
     padding: 5px 17px;
     align-self: center;
-    margin-top: 20px;
+    margin-top: 4px;
     border: 1px solid rgba(128, 128, 128, 0.445);
     background: linear-gradient(109.7deg, rgb(254, 83, 147) 1.8%, rgb(247, 111, 100) 90.2%);
     color: white;
@@ -204,9 +210,10 @@ input[type=number] {
 }
 
 .loginFormInput input {
+    background-color: rgb(56, 56, 56);
     height: 30px;
     width: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.267);
+    border: 1px solid rgba(95, 95, 95, 0.267);
     border-radius: 7px;
     font-size: 13px;
     padding: 0 10px;
@@ -267,11 +274,24 @@ input[type=number] {
 
 .mainContSettings {
     background-color: rgb(44, 44, 44);
+    border: 1px solid rgb(31, 31, 31);
     top: 0;
     transform: translateX(28px);
     padding: 20px 10px;
-    
-    border: 1px solid rgba(0, 0, 0, 0.267);
+    box-shadow: 11px 10px 13px 0px rgba(0,0,0,0.31);
+    -webkit-box-shadow: 11px 10px 13px 0px rgba(0,0,0,0.31);
+    -moz-box-shadow: 11px 10px 13px 0px rgba(0,0,0,0.31);
+    -webkit-transform: translateX(28px);
+    -moz-transform: translateX(28px);
+    -ms-transform: translateX(28px);
+    -o-transform: translateX(28px);
+}
+
+.mainContSettingsSpinner {
+    background-color: rgb(44, 44, 44);
+    top: 0;
+    transform: translateX(28px);
+    padding: 20px 10px;
     -webkit-transform: translateX(28px);
     -moz-transform: translateX(28px);
     -ms-transform: translateX(28px);
@@ -326,12 +346,12 @@ input[type=number] {
     padding: 20px 24px;
     left: 50%;
     transform: translate(-50%, 0);
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(59, 59, 59);
     border: 1px solid rgba(80, 80, 80, 0.374);
     box-shadow: 6px 6px 10px rgba(31, 31, 31, 0.2);
     border-radius: 8px;
     top: -400px;
-    
+    color: white;
     -webkit-transition:all ease-in-out .3s;
     -moz-transition:all ease-in-out .3s;
     -ms-transition:all ease-in-out .3s;
@@ -349,8 +369,24 @@ input[type=number] {
     transform: translate(-50%, 0);
 } 
 
+/* CHAT OPTIONS STYLE */
 
-
+.mainContChatOptions {
+    width: 258px;
+    height: 304px;
+    background-color: rgb(44, 44, 44);
+    top: 73px;
+    right: 28px;
+    transform: translateX(28px);
+    padding: 30px 20px;
+    box-shadow: -4px 4px 13px 0px rgba(0,0,0,0.3);
+    -webkit-box-shadow: -4px 4px 13px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: -4px 4px 13px 0px rgba(0,0,0,0.3);
+    -webkit-transform: translateX(28px);
+    -moz-transform: translateX(28px);
+    -ms-transform: translateX(28px);
+    -o-transform: translateX(28px);
+}
 
 
 

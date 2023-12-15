@@ -5,6 +5,7 @@ import AlertInterface from "../interfaces/alert.interface.js"
 import axiosReq from "../config/axios.js"
 import { useNavigate } from "react-router-dom";
 import tcsquare1 from '../assets/tcsquare1.png'
+import { AnimatePresence } from "framer-motion"
 
 const Register = () => {
 
@@ -94,13 +95,13 @@ const Register = () => {
     }
     
   return (
-    <div className="flex w-screen h-screen">
-
-        {
-            alert?.error &&
-            <Alert error= {alert?.error} msg={alert?.msg} alertType={alert?.alertType} />
-        }
-
+    <div className="flex w-screen h-screen" style={{backgroundColor: 'rgb(39, 39, 39)'}}>
+        <AnimatePresence>
+            {
+                alert?.error &&
+                <Alert error= {alert?.error} msg={alert?.msg} alertType={alert?.alertType} />
+            }
+        </AnimatePresence>
         <div className="flex justify-center w-1/2 h-screen ">
             <img src={tcsquare1} className="w-64 h-40 loginImg" alt="" />
         </div>
@@ -159,7 +160,7 @@ const Register = () => {
                         />
                     </div>
                     
-                    <span className="text-sm cursor-pointer" onClick={handleLogin}>Ya creaste tu cuenta? Hacé click para <b>iniciar sesión</b>.</span>
+                    <span className="text-sm cursor-pointer" onClick={handleLogin}>Ya creaste tu cuenta? Hacé click para <span className="underline">iniciar sesión</span>.</span>
 
                     <button>Crear usuario</button>
                 </form>

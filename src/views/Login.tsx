@@ -6,6 +6,7 @@ import AlertInterface from "../interfaces/alert.interface.js"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth.js"
 import tcsquare1 from '../assets/tcsquare1.png'
+import { AnimatePresence } from "framer-motion"
 
 const Login: React.FC = () => {
     const [inputValues, setInputValues] = useState<LoginInterface>()
@@ -88,7 +89,7 @@ const Login: React.FC = () => {
 
     
     return (
-        <div className="flex w-screen h-screen">
+        <div className="flex w-screen h-screen" style={{backgroundColor: 'rgb(39, 39, 39)'}}>
             <div className="flex justify-center w-1/2 h-screen ">
                 <img src={tcsquare1} className="w-64 h-40 loginImg" alt="" />
             </div>
@@ -123,10 +124,9 @@ const Login: React.FC = () => {
                         <button>Ingresar</button>
                     </form>
 
-                    {
-                        alert?.error &&
-                        <Alert error= {alert?.error} msg={alert?.msg} alertType={alert?.alertType} />
-                    }
+                    <AnimatePresence>
+                        { alert?.error && <Alert msg={alert.msg} error={alert.error} alertType={alert?.alertType}  /> }
+                    </AnimatePresence>
                     
                 </div>
             </div>

@@ -250,7 +250,7 @@ const Home = () => {
                             </motion.button>
                         </div>
 
-                        {chats?.map( chat => 
+                        { chats?.map( chat => 
                             <Chat  key={chat.userId} handleClickProp={(e) => {handleClick(e)}} userId={chat.userId} profileImage={chat.profileImage} name={chat.name} lastMsg={chat.lastMsg} activeChat={activeChat} />
                         )}
                                 
@@ -259,7 +259,7 @@ const Home = () => {
 
                 {/* sidebar end */}
                 
-                <ChatMessagesBox sentBy={chatProps?.sentBy} sentTo={chatProps?.sentTo} onNewMessage={(message, userId) => {updateChatLastMsg(message, userId)}} />
+                <ChatMessagesBox sentBy={chatProps?.sentBy} sentTo={chatProps?.sentTo} onChatDelete={() => getChats()} onNewMessage={(message, userId) => {updateChatLastMsg(message, userId)}} />
 
             </div>           
         </>

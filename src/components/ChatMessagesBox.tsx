@@ -8,11 +8,14 @@ import { motion } from 'framer-motion';
 import paperplane from '../assets/paper-plane.png'
 import paperclip from '../assets/paper-clip.png'
 import happy from '../assets/happy.png'
-
+import tcsquare1 from '../assets/tcsquare1.png'
+import ChatOptions from './ChatOptions';
+import more from '../assets/more.png'
 interface chatProps {
-    sentBy: string|null,
-    sentTo: string,
-    onNewMessage: (message: messageInterface, userId: string | undefined ) => void 
+    sentBy: string|null;
+    sentTo: string;
+    onChatDelete: () => void
+    onNewMessage: (message: messageInterface, userId: string | undefined ) => void ;
 } 
 
 type userTwo = {
@@ -24,7 +27,7 @@ type userTwo = {
     profileImage: string
 }
 
-const ChatMessagesBox: React.FC<chatProps> = ({sentBy, sentTo, onNewMessage}) => {
+const ChatMessagesBox: React.FC<chatProps> = ({sentBy, sentTo, onNewMessage, onChatDelete}) => {
 
     const [ messages, setMessages ] = useState<Array<messageInterface>>([])
     const [ textInput, setTextInput ] = useState('')
@@ -32,6 +35,7 @@ const ChatMessagesBox: React.FC<chatProps> = ({sentBy, sentTo, onNewMessage}) =>
     const [ chatId , setChatId ] = useState('')
     const socket = useContext(SocketContext)
     const [isChatSelected, setIsChatSelected] = useState(false)
+    const [chatOptionsActive, setChatOptionsActive] = useState(false)
 
     const userActiveId = localStorage.getItem('typechat_userId')
     const token = localStorage.getItem('typechat_token')
@@ -75,7 +79,16 @@ const ChatMessagesBox: React.FC<chatProps> = ({sentBy, sentTo, onNewMessage}) =>
                 console.log(error)
             }
         }
-    }            
+    }    
+    
+    const handleChatOptions = () => {
+        if(!chatOptionsActive) {
+            setChatOptionsActive(true)
+        } else {
+            setChatOptionsActive(false)
+        }
+
+    }
 
     // selected chat useEffect //
     useEffect(() => {
@@ -101,6 +114,12 @@ const ChatMessagesBox: React.FC<chatProps> = ({sentBy, sentTo, onNewMessage}) =>
         }
     }, [chatId])
 
+
+    const ChatDelete = () => {
+        setIsChatSelected(false) 
+        onChatDelete()
+    }
+
   return (
     <>
     
@@ -118,7 +137,7 @@ const ChatMessagesBox: React.FC<chatProps> = ({sentBy, sentTo, onNewMessage}) =>
                 { !isChatSelected && 
                     <>
                         <div className='flex flex-col items-center justify-center w-full h-full gap-4'>
-                            <img className='w-64' src="../assets/images/tcsquare1.png" alt="" />
+                            <img className='w-64' src={tcsquare1} alt="" />
                             <h1 className='text-xl font-semibold text-white'>TypeChat for Windows</h1>
                             <span className='text-sm font-normal text-white'>
                                 ¡Selecciona un chat o inicia uno nuevo para comenzar a hablar!
@@ -141,8 +160,11 @@ const ChatMessagesBox: React.FC<chatProps> = ({sentBy, sentTo, onNewMessage}) =>
                             </div>
 
                             <div className="">
-                                <img className="w-4 h-4" src="/assets/more.png" alt="" />
+                                <motion.img whileTap={{ scale: 0.9 }} className="w-4 h-4" src={more} alt="" onClick={handleChatOptions}/>
+                                { chatOptionsActive && <ChatOptions userId={userTwoData?._id} chatId={chatId} refreshChatDeleted={ () => ChatDelete() } /> }
                             </div>
+
+
                         </div>
 
                         {/* MESSAGES CONTAINER */}
