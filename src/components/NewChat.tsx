@@ -93,6 +93,8 @@ const NewChat: React.FC = () => {
                     }
                     await axiosReq.post('/messages/send', message, authHeader)
                     //EMIT SOCKET CHAT CREATED NOTIFICATION//
+                    console.log(userIDs);
+                    
                     socket.emit('clientNewChatCreated', {userOne: userIDs.userOne, userTwo: userIDs.userTwo})
                     setLoadingTimeout()
                     return
