@@ -126,16 +126,7 @@ const Home = () => {
         }
     }
 
-    const updateLastMsg = () => {       
-        /*const updatedChats = chats?.map( chat => chat.chatId === data.room ? { ...chat, lastMsg: data.msg.text } : chat)
-        console.log(updatedChats);
 
-        setChats(updatedChats)*/
-        getChats()
-        
-        /*const chatToUpdateIndex = chats?.findIndex((chat => chat.chatId === data.room))*/
-        
-    }
 
     /*const updateChatLastMsg = (message: messageInterface) => {
         console.log(message);
@@ -162,7 +153,7 @@ const Home = () => {
             getChats()
         })
         socket.on('incomingMsgNotification', () => {            
-            updateLastMsg()
+            getChats()
         })
         socket.on('serverNewChatCreated', (roomUsers) => {
             if(roomUsers.userOne === userId){

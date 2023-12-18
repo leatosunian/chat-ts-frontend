@@ -3,9 +3,7 @@ import { useAuth } from "../hooks/useAuth"
 import Spinner from "../components/Spinner";
 
 const ProtectedLayout = () => {
-
     const { authState, loading } = useAuth()
-    console.log(authState);
     if(loading) return (
         <>
             <div className="absolute z-50 flex w-screen h-screen backgroundColor ">

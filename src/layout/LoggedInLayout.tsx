@@ -3,7 +3,6 @@ import { useAuth } from "../hooks/useAuth"
 import Spinner from "../components/Spinner"
 
 const LoggedInLayout = () => {
-
     const { authState, loading } = useAuth()
     if(loading) return (
         <>

@@ -27,7 +27,6 @@ export const AuthProvider = ({children}:props) => {
         const checkUserAuth = async () => {
             const userID = localStorage.getItem('typechat_userId')
             const token = localStorage.getItem('typechat_token')
-            
             if(!token) {
                 setLoading(false)
                 return
@@ -41,7 +40,6 @@ export const AuthProvider = ({children}:props) => {
             }
             try {
                 const {data} = await axiosReq.get('/user/getdata/'+userID, authHeader)
-                console.log(data.response_data);
                 const loginData: IAuthContextState = {
                     userID: data.response_data._id,
                     token

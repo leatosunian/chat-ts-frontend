@@ -3,6 +3,5 @@ import { ServerToClientEvents, ClientToServerEvents } from '../interfaces/socket
 import { createContext } from 'react';
 
 export const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(`${import.meta.env.VITE_BACKEND_URL}/`);
-
 export const SocketContext = createContext(socket);
 
