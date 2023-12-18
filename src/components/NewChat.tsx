@@ -93,8 +93,6 @@ const NewChat: React.FC = () => {
                     }
                     await axiosReq.post('/messages/send', message, authHeader)
                     //EMIT SOCKET CHAT CREATED NOTIFICATION//
-                    console.log(userIDs);
-                    
                     socket.emit('clientNewChatCreated', {userOne: userIDs.userOne, userTwo: userIDs.userTwo})
                     setLoadingTimeout()
                     return
@@ -107,9 +105,10 @@ const NewChat: React.FC = () => {
             }
         } catch (error) {
             setLoadingTimeout()
-            if(error)
-            handleAlert({error: true, msg: 'Error al iniciar chat.', alertType: 'ERROR_ALERT'});
-            hideAlert()
+            if(error){
+                handleAlert({error: true, msg: 'Error al iniciar chat.', alertType: 'ERROR_ALERT'});
+                hideAlert()
+            }
         }
     }
 

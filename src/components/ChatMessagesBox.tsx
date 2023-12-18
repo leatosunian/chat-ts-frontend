@@ -15,7 +15,7 @@ interface chatProps {
     sentBy: string|null;
     sentTo: string;
     onChatDelete: () => void
-    onNewMessage: (message: messageInterface, userId: string | undefined ) => void ;
+    onNewMessage?: (message: messageInterface, userId: string | undefined ) => void ;
 } 
 
 type userTwo = {
@@ -27,7 +27,7 @@ type userTwo = {
     profileImage: string
 }
 
-const ChatMessagesBox: React.FC<chatProps> = ({sentBy, sentTo, onNewMessage, onChatDelete}) => {
+const ChatMessagesBox: React.FC<chatProps> = ({sentBy, sentTo, onChatDelete}) => {
 
     const [ messages, setMessages ] = useState<Array<messageInterface>>([])
     const [ textInput, setTextInput ] = useState('')
@@ -100,7 +100,7 @@ const ChatMessagesBox: React.FC<chatProps> = ({sentBy, sentTo, onNewMessage, onC
         socket.on('serverMsg', (data) => {
             console.log(data);
             setMessages( messages => [data.msg, ...messages])  
-            onNewMessage(data.msg, userTwoData?._id)       
+            /*onNewMessage(data.msg, userTwoData?._id) */      
         })
         return () => {
             socket.off('serverMsg')

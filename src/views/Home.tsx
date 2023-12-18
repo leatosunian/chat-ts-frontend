@@ -126,24 +126,18 @@ const Home = () => {
         }
     }
 
-    const updateLastMsg = (data: { msg: messageInterface; room: string; }) => {
-        console.log(data.room);
-        console.log(data.msg);
-        
+    const updateLastMsg = () => {       
         /*const updatedChats = chats?.map( chat => chat.chatId === data.room ? { ...chat, lastMsg: data.msg.text } : chat)
         console.log(updatedChats);
 
         setChats(updatedChats)*/
-        console.log({chats});
         getChats()
         
-        const chatToUpdateIndex = chats?.findIndex((chat => chat.chatId === data.room))
-
-        console.log(chatToUpdateIndex);
+        /*const chatToUpdateIndex = chats?.findIndex((chat => chat.chatId === data.room))*/
         
     }
 
-    const updateChatLastMsg = (message: messageInterface, userId: string | undefined ) => {
+    /*const updateChatLastMsg = (message: messageInterface) => {
         console.log(message);
         console.log(userId);
         console.log(chats?.length);
@@ -154,8 +148,8 @@ const Home = () => {
         console.log(chatToUpdate);
         
         /*const updatedChats = chats?.map( chat => chat.chatId === data.room ? { ...chat, lastMsg: data.msg.text } : chat)
-        console.log(updatedChats);*/
-    }
+        console.log(updatedChats);
+    }*/
 
     useEffect(() => {
         getChats()        
@@ -167,11 +161,10 @@ const Home = () => {
             setSocketData(data)
             getChats()
         })
-        socket.on('incomingMsgNotification', (data) => {            
-            updateLastMsg(data)
+        socket.on('incomingMsgNotification', () => {            
+            updateLastMsg()
         })
         socket.on('serverNewChatCreated', (roomUsers) => {
-            console.log(roomUsers);
             if(roomUsers.userOne === userId){
                 const sentBy = roomUsers.userOne
                 const sentTo = roomUsers.userTwo
@@ -192,15 +185,6 @@ const Home = () => {
             socket.off('serverNewChatCreated')
         }
     }, [socket])
-
-    /*const showSpinner = () => {
-        return (
-            <div ref={scope} className="flex w-screen h-screen backgroundColor ">
-                <Spinner/>
-            </div>
-        )
-    }*/
-
 
     return (
         <>
@@ -259,7 +243,7 @@ const Home = () => {
 
                 {/* sidebar end */}
                 
-                <ChatMessagesBox sentBy={chatProps?.sentBy} sentTo={chatProps?.sentTo} onChatDelete={() => getChats()} onNewMessage={(message, userId) => {updateChatLastMsg(message, userId)}} />
+                <ChatMessagesBox sentBy={chatProps?.sentBy} sentTo={chatProps?.sentTo} onChatDelete={() => getChats()}  />
 
             </div>           
         </>

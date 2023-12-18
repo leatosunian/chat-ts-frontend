@@ -42,7 +42,6 @@ const Login: React.FC = () => {
 
         // LOGIN REQUEST //
         const response = await axiosReq.post('/user/login', inputValues);
-        console.log(response.data.response_data);
         if(response.data.response_data === 'USER_NOT_FOUND'){
             handleAlert({error: true, alertType: 'ERROR_ALERT', msg: 'El usuario no existe'});
             hideAlert()
@@ -53,8 +52,8 @@ const Login: React.FC = () => {
             hideAlert()
             return;
         }
+        
         // USER DATA STORAGE //
-
         const loginData = {
             userID: response.data.response_data.userId,
             token: response.data.response_data.loginToken
@@ -62,9 +61,7 @@ const Login: React.FC = () => {
 
         localStorage.setItem('typechat_token', loginData.token)
         localStorage.setItem('typechat_userId', loginData.userID) 
-
         saveAuthData(loginData)
-
         navigate('/home')      
     }
 

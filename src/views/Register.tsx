@@ -76,7 +76,6 @@ const Register = () => {
 
         // REGISTER REQUEST //
         const response = await axiosReq.post('/user/create', inputValues);
-        console.log(response.data.response_data);
         if(response.data.response_data === 'USER_EXISTS'){
             handleAlert({error: true, msg: 'El usuario ya existe.', alertType: 'ERROR_ALERT'});
             hideAlert()

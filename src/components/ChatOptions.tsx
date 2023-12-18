@@ -44,8 +44,6 @@ const ChatOptions: React.FC<chatOptionsProps> = ({userId, chatId, refreshChatDel
     const getProfileData = async (userId:string | undefined) => {
         try {
             const response = await axiosReq.get('/user/getdata/'+userId, authHeader)
-            console.log(response);
-            
             setUserData(response.data.response_data)
             setLoadingTimeout()
         } catch (error) {
@@ -70,7 +68,6 @@ const ChatOptions: React.FC<chatOptionsProps> = ({userId, chatId, refreshChatDel
     
     const deleteChat = async () => {
         const deletedChat = await axiosReq.delete('/chats/delete/'+chatId, authHeader)
-        console.log(deletedChat);
         if(deletedChat.data === 'CHAT_DELETED_SUCCESSFULLY'){
             handleAlert({error: true, alertType: 'OK_ALERT', msg: 'El chat ha sido eliminado!'});
             hideAlert()
@@ -79,8 +76,6 @@ const ChatOptions: React.FC<chatOptionsProps> = ({userId, chatId, refreshChatDel
         if(deletedChat.data === 'CHAT_DELETE_ERROR') {
             handleAlert({error: true, alertType: 'ERROR_ALERT', msg: 'No se pudo eliminar el chat.'});
         }
-        
-        
     }
 
     useEffect(() => {

@@ -126,7 +126,6 @@ const ProfileSettings: React.FC<settingsProps> = ({userId, refreshProfile}) => {
     const updateProfileImage = async (image: File) => {
         const formData = new FormData();
         formData.append('profile-image', image);
-
         try {
             await axiosReq.post('/user/update/profile-pic', formData, formAuthHeader);
             handleAlert({ msg: '¡Tu foto de perfil ha sido cambiada!', error: true, alertType: 'OK_ALERT' });
