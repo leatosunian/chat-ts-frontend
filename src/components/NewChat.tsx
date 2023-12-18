@@ -82,11 +82,11 @@ const NewChat: React.FC = () => {
             // CREATE CHAT //
             if(userIDs.userOne !== '' || userIDs.userTwo !== ''){
                 const chatCreated = await axiosReq.post('/chats/create', userIDs , authHeader)
-                if(chatCreated.data.msg === 'CHAT_CREATED_SUCCESSFULLY'){
+                if(chatCreated.data.response_data.msg === 'CHAT_CREATED_SUCCESSFULLY'){
                     const message = {
                         sentBy: userIDs.userOne,
                         sentTo: userIDs.userTwo,
-                        chatID: chatCreated.data.response_data._id,
+                        chatID: chatCreated.data.response_data.createdChat._id,
                         msgType: 'text',
                         text: formData.message,
                         date: getActualTime()
