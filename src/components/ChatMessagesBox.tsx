@@ -118,6 +118,7 @@ const ChatMessagesBox: React.FC<chatProps> = ({sentBy, sentTo, onNewMessage, onC
     const ChatDelete = () => {
         setIsChatSelected(false) 
         onChatDelete()
+        setChatOptionsActive(false)
     }
 
   return (
